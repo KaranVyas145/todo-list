@@ -92,6 +92,10 @@ form button:hover{
     margin-left: 15px;
 }
 
+.edit-btn{
+    background-color: rgb(30, 88, 250);
+}
+
 .todo-item{
     padding: 0 0.5rem;
 }
