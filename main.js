@@ -3,7 +3,7 @@ const todoInput = document.querySelector(".todo-input");
 const todoButton = document.querySelector(".todo-button");
 const todoList = document.querySelector(".todo-list");
 const filterOption = document.querySelector(".filter-todo");
-
+const clearAll=document.getElementById('clearAll');
 
 // Event lisetners
 todoButton.addEventListener("click", addTodo);
@@ -12,15 +12,14 @@ console.log(todoList);
 
 filterOption.addEventListener("change", filterTodo);
 document.addEventListener("DOMContentLoaded", getTodos);
+clearAll.addEventListener("click",clearLocal);
 
 // Functions
 
 function addTodo(event) {
-  // Checking ig todo input is empty
-
   // Prevent form from submitting
   event.preventDefault();
-
+  // Checking ig todo input is empty
   if (todoInput.value != 0) {
     // Todo Div
     const todoDiv = document.createElement("div");
@@ -40,14 +39,14 @@ function addTodo(event) {
     completedButton.innerHTML = `<i class="fas fa-check"></i>`;
     completedButton.classList.add("complete-btn");
     todoDiv.appendChild(completedButton);
-    
+
     // Trash button
     const trashButton = document.createElement("button");
     trashButton.innerHTML = `<i class="fas fa-trash"></i>`;
     trashButton.classList.add("trash-btn");
     todoDiv.appendChild(trashButton);
 
-    // Edit button 
+    // Edit button
     const editButton = document.createElement("button");
     editButton.innerHTML = `<i class="fas fa-edit"></i>`;
     editButton.classList.add("edit-btn");
@@ -57,7 +56,7 @@ function addTodo(event) {
     todoList.appendChild(todoDiv);
 
     //   Clear todoInput value
-    todoInput.value="";
+    todoInput.value = "";
   }
 }
 
@@ -82,29 +81,19 @@ function deleteCheckEdit(event) {
     const todo = item.parentElement;
     todo.classList.toggle("completed");
   }
-    // const editdiv= item.parentElement;
-    // let oldValue=editdiv.innerText;
-    // editdiv.innerHTML=`<textarea class="edit-input"> ${editdiv.innerText}</textarea><button class="complete-btn"><i class="fas fa-edit" aria-hidden="true"></i></button> <button class="trash-btn"><i class="fas fa-trash" aria-hidden="true"></i></button>`;
-    // console.log(editdiv);
-    // editdiv.firstChild.addEventListener("blur",()=>{
-    //   editdiv.innerHTML=`<li class="todo-item">${editdiv.firstChild.value}</li> <button class="complete-btn"><i class="fas fa-edit" aria-hidden="true"></i></button> <button class="trash-btn"><i class="fas fa-trash" aria-hidden="true"></i></button>`;
-    //   let newValue= editdiv.firstChild.innerText;
-    //   editLocalTodo(oldValue,newValue,editdiv);
-    // })
-    if(item.classList[0]==="edit-btn"){
-      const todo = item.parentElement;
-      todoInput.value=todo.innerText;
-      todo.remove();
-      removeLocalTodos(todo);
-     
-    }
-}
 
+  //Edit todo
+  if (item.classList[0] === "edit-btn") {
+    const todo = item.parentElement;
+    todoInput.value = todo.innerText;
+    // saveLocalTodos(todo);
+    todo.remove();
+    removeLocalTodos(todo);
+  }
+}
 
 function filterTodo(e) {
   const todos = todoList.childNodes;
-  // console.log(todos);
-  // console.log(todos);
   todos.forEach(function (todo) {
     if (todo.innerText == undefined) {
     } else {
@@ -165,7 +154,7 @@ function getTodos() {
 
     // Checkmark button
     const completedButton = document.createElement("button");
-    completedButton.innerHTML = `<i class="fas fa-edit"></i>`;
+    completedButton.innerHTML = `<i class="fas fa-check"></i>`;
     completedButton.classList.add("complete-btn");
     todoDiv.appendChild(completedButton);
 
@@ -175,7 +164,7 @@ function getTodos() {
     trashButton.classList.add("trash-btn");
     todoDiv.appendChild(trashButton);
 
-    // Edit button 
+    // Edit button
     const editButton = document.createElement("button");
     editButton.innerHTML = `<i class="fas fa-edit"></i>`;
     editButton.classList.add("edit-btn");
@@ -200,7 +189,7 @@ function removeLocalTodos(todo) {
   localStorage.setItem("todos", JSON.stringify(todos));
 }
 
-function editLocalTodo(oldValue,newValue,todo){
+function editLocalTodo(oldValue, newValue, todo) {
   let todos;
   // Check if there is already data in localStorage
   if (localStorage.getItem("todos") == null) {
@@ -209,9 +198,15 @@ function editLocalTodo(oldValue,newValue,todo){
     todos = JSON.parse(localStorage.getItem("todos"));
     // todoIndex=todo.children[0].innerText;
     console.log(todo);
-    todoIndex=oldValue;
+    todoIndex = oldValue;
     console.log(newValue);
-    todos[todos.indexOf(todoIndex)]=newValue;
+    todos[todos.indexOf(todoIndex)] = newValue;
     localStorage.setItem("todos", JSON.stringify(todos));
+  }
+}
+
+function clearLocal(){
+  if(localStorage.getItem("todos")!=null){
+    window.localStorage.removeItem("todos");
   }
 }
