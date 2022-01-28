@@ -75,7 +75,7 @@ form button:hover{
     background-color: white;
 }
 
-.trash-btn, .complete-btn{
+.trash-btn, .complete-btn, .edit-btn{
     background: #ff6f47;
     color: white;
     border: none;
@@ -96,7 +96,7 @@ form button:hover{
     padding: 0 0.5rem;
 }
 
-.fa-trash, .fa-check{
+.fa-trash, .fa-check, .fa-edit{
     pointer-events: none;
 }
 
