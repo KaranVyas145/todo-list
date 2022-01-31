@@ -8,7 +8,7 @@ const clearAll=document.getElementById('clearAll');
 // Event lisetners
 todoButton.addEventListener("click", addTodo);
 todoList.addEventListener("click", deleteCheckEdit);
-console.log(todoList);
+
 
 filterOption.addEventListener("change", filterTodo);
 document.addEventListener("DOMContentLoaded", getTodos);
@@ -129,7 +129,6 @@ function saveLocalTodos(todo) {
     todos = JSON.parse(localStorage.getItem("todos"));
   }
   todos.push(todo);
-  console.log(todos);
   localStorage.setItem("todos", JSON.stringify(todos));
 }
 
@@ -184,7 +183,6 @@ function removeLocalTodos(todo) {
     todos = JSON.parse(localStorage.getItem("todos"));
   }
   todoIndex = todo.children[0].innerText;
-  console.log(todoIndex);
   todos.splice(todos.indexOf(todoIndex), 1);
   localStorage.setItem("todos", JSON.stringify(todos));
 }
@@ -196,10 +194,7 @@ function editLocalTodo(oldValue, newValue, todo) {
     todos = [];
   } else {
     todos = JSON.parse(localStorage.getItem("todos"));
-    // todoIndex=todo.children[0].innerText;
-    console.log(todo);
     todoIndex = oldValue;
-    console.log(newValue);
     todos[todos.indexOf(todoIndex)] = newValue;
     localStorage.setItem("todos", JSON.stringify(todos));
   }
